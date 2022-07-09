@@ -19,3 +19,4 @@ export const mockImages = [
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT18d01c863YU_4P3SQTeLNncTx5bK01xZfsw&usqp=CAU",
   "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/white-rabbit-moscow-1638395218.png?crop=1xw:1xh;center,top&resize=480:*",
 ];
+

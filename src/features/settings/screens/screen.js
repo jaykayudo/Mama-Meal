@@ -1,14 +1,32 @@
 import {List, Avatar, Portal, Modal, Provider, Button} from 'react-native-paper'
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AuthContext } from '../../../context/AuthContext';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { fonts } from '../../../utils/fonts';
 import { color } from '../../../utils/colors';
 const SettingsScreen = ({navigation}) => {
         const [visible, setVisible] = useState(false);
+        const [picture, setPicture] = useState(null)
         const authContext = useContext(AuthContext)
         const showModal = () => setVisible(true);
         const hideModal = () => setVisible(false);
+    const getProfilePhoto  = async(user)=>{
+        try{
+            const photo = await AsyncStorage.getItem(`${user}-photo`)
+            if(photo)
+                setPicture(photo)
+            
+                
+        }
+        catch(e){
+
+        }
+    }
+    useFocusEffect(()=>{
+        getProfilePhoto(authContext.user.email)
+    })
     return ( 
     <Provider>
         <Portal>
@@ -18,14 +36,18 @@ const SettingsScreen = ({navigation}) => {
                 <Button onPress={authContext.onLogout} mode="contained" color={color.ui.error}>
                     Yes
                 </Button>
-                <Button onPress={hideModal} mode="contained" color={color.ui.secondary}>
+                <Button onPress={hideModal} mode="outlined" color={color.ui.secondary}>
                     No
                 </Button>
             </View>
             </Modal>
       </Portal>
     <View style={styles.profileImg}>
-        <Avatar.Icon size={150} icon="account" />
+        <TouchableOpacity onPress={()=>navigation.navigate("Camera")}>
+            {!picture?(<><Avatar.Icon size={150} icon="account" /><Text style={{fontSize: 12}}>Click Avatar to add image</Text></>):(
+                <Avatar.Image size={150} source={{uri:`${picture}`}} />
+            )}
+        </TouchableOpacity>
         <Text style={styles.userText}>{authContext.user.email}</Text>
     </View>
     <View>
@@ -69,7 +91,7 @@ const styles = StyleSheet.create({
         textAlign:"center",
         textTransform:"capitalize"
     },
-    userText:{marginTop: 5, fontFamily: fonts.body},
+    userText:{marginTop: 5, fontFamily: fonts.body, fontSize: 20},
     buttonContainer:{
         flexDirection:"row",
         justifyContent:"space-between"

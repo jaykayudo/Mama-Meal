@@ -6,7 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import MapScreen from '../map/screens/screen';
 import RestaurantsNavigator from './restaurantsNavigator';
-import SettingsScreen from '../settings/screens/screen';
+import SettingsNavigator from './settingsNavigator';
+import CheckoutNavigator from './checkoutNavigator';
 const iconPattern = {
     "Restaurant":{
       focused: (size,color)=>(<Ionicons name="restaurant" size={size} color={color} />),
@@ -19,6 +20,10 @@ const iconPattern = {
     "Settings":{
       focused:(size,color)=>(<Ionicons name="settings" size={size} color={color} />),
       unfocused:(size,color)=>(<Ionicons name="settings" size={size} color={color} />)
+    },
+    "Checkout":{
+      focused:(size,color)=>(<Ionicons name="cart" size={size} color={color} />),
+      unfocused:(size,color)=>(<Ionicons name="cart-outline" size={size} color={color} />)
     }
   }
   const allPath = [
@@ -38,6 +43,8 @@ const Navigator = () => {
               icon  =  focused? iconPattern[`${route.name}`].focused(size,color) : iconPattern[`${route.name}`].unfocused(size,color)
             else if(route.name === "Settings")
               icon  =  focused? iconPattern[`${route.name}`].focused(size,color) : iconPattern[`${route.name}`].unfocused(size,color)
+            else if(route.name === "Checkout")
+              icon  =  focused? iconPattern[`${route.name}`].focused(size,color) : iconPattern[`${route.name}`].unfocused(size,color)
             return icon
           },
           tabBarInactiveTintColor:"gray",
@@ -46,8 +53,9 @@ const Navigator = () => {
         })}
         >
           <Tab.Screen  name="Restaurant" component={RestaurantsNavigator} />
+          <Tab.Screen name='Checkout' component={CheckoutNavigator} />
           <Tab.Screen name="Map" component={MapScreen} />
-          <Tab.Screen name="Settings" component={SettingsScreen}  />
+          <Tab.Screen name="Settings" component={SettingsNavigator}  />
         </Tab.Navigator>
         </NavigationContainer> );
 }

@@ -18,6 +18,7 @@ import {
 import { RestaurantContextProvider } from './src/features/restaurants/components/context';
 import {  LocationContextProvider } from './src/features/restaurants/components/locationContext';
 import { AuthContextProvider } from './src/context/AuthContext';
+import { CheckoutContextProvider } from './src/context/CheckoutContext';
 
 // import MainNavigation from './src/features/navigations';
 // const firebaseConfig = {
@@ -49,7 +50,9 @@ export default function App() {
     <AuthContextProvider>
     <LocationContextProvider>
     <RestaurantContextProvider>
+    <CheckoutContextProvider>
     <MainNavigation />
+    </CheckoutContextProvider>
     </RestaurantContextProvider>
     </LocationContextProvider>
     </AuthContextProvider>
