@@ -1,7 +1,7 @@
 # Mama-Meal
 <div align="center">
   <h1>Mama Meal</h1>
-  <br> Mobile Application
+  <br> Mobile Application built with react native
 </div>
 
 ## Features
